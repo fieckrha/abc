@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-import LINETCR
-from LINETCR.lib.curve.ttypes import *
+import FXR
+from FXR.lib.curve.ttypes import *
 from datetime import datetime
 import time,random,sys,json,codecs,threading,glob,re
 
@@ -9,16 +9,16 @@ import time,random,sys,json,codecs,threading,glob,re
 #kk.login(qr=True)
 #kk.loginResult()
 
-cl = LINETCR.LINE()
+cl = FXR.LINE()
 cl.login(token="EmJP3cTCBBbxHq0PFdBb.TOwfr+vlbbebmmu/8etFgW.Tzn0ZFqDvUXD/jWhM/c/CgsPuaiV1kssQybIx8ZbdPs=")
 
-ki = LINETCR.LINE()
+ki = FXR.LINE()
 ki.login(token="EmgF0AVGiGl8QAfvrNhd.NxllMtv6lqmOeR+fBoKPdq.0M6yj8tTk8PF7xHSMVxBkNqUkFnNnFODTx3aeSDYd/A=")
 
-kk = LINETCR.LINE()
+kk = FXR.LINE()
 kk.login(token="Emd0Ugxca7DreRgUPqfe.D2UjDHf7T6UbYDdb8RmhhG.jouUV0WbNd2IRveT3B1ziqb+qDqByX6NqeLp70lASoc=")
 
-kc = LINETCR.LINE()
+kc = FXR.LINE()
 kc.login(token="EmrEJYG9GKIazvHUoTTd.5+WFW3AUqznDTUyXU1x0Fq.gG7iMVl9Lb3OFpZ2DoYovuzXfCKomEBRzLQn5ryOJrI=")
 
 

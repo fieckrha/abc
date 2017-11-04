@@ -5,7 +5,7 @@ from FXR.lib.curve.ttypes import *
 from datetime import datetime
 import time,random,sys,json,codecs,threading,glob,re
 
-#kk = LINETCR.LINE()
+#kk = FXR.LINE()
 #kk.login(qr=True)
 #kk.loginResult()
 
@@ -29,41 +29,70 @@ sys.setdefaultencoding('utf-8')
 helpMessage =""" 〘тєαм вσт є∂ιтє∂〙
 
 ☁̸҉̸.̸҉ =ȼ๏ʍʍąɲď β๏ţ  ̸҉̸.̸҉̸☁
-[Me]
-[My mid]
-[Bot?]
-[Id Group]
+[@Key,@key,@help,@Help]
+[@set group]
+[@bot?]
+[@Creator,@creator]
+[@Me]
+[@Gift]
+[@All gift]
+[@Cancel,@cancel]
+[@Open url,@open url]
+[@Close url,@close url]
 [Ginfo]
-[Mid all]
-[Get ready]
-[Speed]
-[Up]
-[Tagall]
-[Banlist]
-[Set]
-[cek]
-[Point]
-[Creator]
-C̳O̳M̳M̳A̳N̳D̳ O̳N̳ G̳R̳O̳U̳P̳
-[Set group]
-[Gn namagroup]
-[Open url]
-[Close url]
-[Cancel]
+[@Id Group]
+[@My mid]
+[@Mid all]
+[Wkwkwk,Wkwk,Wk,wkwkwk,wkwk,wk]
+[Hehehe,Hehe,He,hehehe,hehe,he]
+[Galau]
+[You]
+[Hadeuh]
+[Please]
+[Haaa]
+[Lol]
+[Hmmm,Hmm,Hm,hmmm,hmm,hm]
+[Welcome]
+[@Joinn on,@joinn on]
+[@Joinn off,@joinn off]
+[@Cancl on,@cancl on]
+[@Cancl off,@cancl off]
+[@Gr on,@gr on]
+[@Gr off,@gr off]
+[@Contact On,@Contact on,@contact on]
+[@Contact Off,@Contact off,@contact off]
+[@set view]
+[@group id]
+[@cancelall]
+[@cctv]
+[@nongol]
+[@all join,@semua masuk,@pus]
+[@Bye all]
+[Tagall,kiwkiw,Kiwkiw,tagall]
+[@Pembersihan]
+[Nk ]
+[@Ban @]
+[@Unban @]
+[@Reset,@reset]
+[Copy @]
+[@Up,@up,@Up Chat,@Up chat,@up chat,@Upchat,@upchat]
+[@bc ]
+[@list group]
+[ZSIsay hi,pagi,bobo ah"]
+[@PING,@Ping,@ping]
+[Respon,respon,Respon Dong,respon dong]
+[Respon beb]
+[@speed,@speedbot]
+[@bl ]
+[@ban]
+[@unban]
+[@banlist]
+[@cek ban]
+[@kill ban]
 [Admin add @]
-[Admin remove @]
-[Adminlist]
-[Ban @]
-[Ban] 
-[Unban @]
-[Unban]
-[Kill @]
-[Nk @]
-[Invite mid]
-[Kick mid]
-[All join]
-[_namabot join]
-[Bye _namabot]
+[@admin remove @]
+[@list admin,@adminlist]
+
 """
 
 Setgroup =""" Private Menu B̳O̳T̳ L̳I̳N̳E̳ E̳D̳I̳T̳E̳D̳
@@ -77,6 +106,8 @@ Setgroup =""" Private Menu B̳O̳T̳ L̳I̳N̳E̳ E̳D̳I̳T̳E̳D̳
 [No Joinned]
 -- Joinn on/off
 """
+#"u532647a27196dbe0b82b874e047da521"
+
 KAC=[cl,ki,kk,kc]
 DEF=[ki,kk,kc]
 mid = cl.getProfile().mid
@@ -111,7 +142,7 @@ wait = {
     "dblacklist":False,
     "Protectgr":True,
     "Protectjoin":False,
-    "Protectcancl":False,
+    "Protectcancl":True,
     "protectionOn":True,
     "atjointicket":True,
     }
@@ -143,7 +174,7 @@ def upload_tempimage(client):
          'name':  'bot auto upload',
          'title': 'bot auto upload',
          'description': 'bot auto upload'
-     }
+         }
 
      print("Uploading image... ")
      image = client.upload_from_path(image_path, config=config, anon=False)
@@ -158,17 +189,17 @@ def sendImage(self, to_, path):
       M_id = self.Talk.client.sendMessage(0,M).id
       files = {
          'file': open(path, 'rb'),
-      }
+         }
       params = {
          'name': 'media',
          'oid': M_id,
          'size': len(open(path, 'rb').read()),
          'type': 'image',
          'ver': '1.0',
-      }
+         }
       data = {
          'params': json.dumps(params)
-      }
+         }
       r = self.post_content('https://os.line.naver.jp/talk/m/upload.nhn', data=data, files=files)
       if r.status_code != 201:
          raise Exception('Upload image failure.')
@@ -250,26 +281,31 @@ def bot(op):
 			if wait["Protectgr"] == True:
 				if op.param2 in admin:
 					pass
-				if op.param2 not in Bots:
-					G = cl.getGroup(op.param1)
-					G.preventJoinByTicket = True
-					random.choice(DEF).kickoutFromGroup(op.param1,[op.param2])
-					random.choice(DEF).updateGroup(G)
+				else:
+					if op.param2 not in Bots:
+						G = cl.getGroup(op.param1)
+						G.preventJoinByTicket = True
+						random.choice(DEF).kickoutFromGroup(op.param1,[op.param2])
+						random.choice(DEF).updateGroup(G)
         #------Protect Group Kick finish-----#
 
         #------Cancel Invite User start------#
         if op.type == 13:
            if wait["Protectcancl"] == True:
-               if op.param2 not in Bots:
-                  group = cl.getGroup(op.param1)
-                  gMembMids = [contact.mid for contact in group.invitee]
-                  random.choice(DEF).cancelGroupInvitation(op.param1, gMembMids)
+               if op.param2 in admin:
+                   pass
+               else:
+                   if op.param2 not in Bots:
+                      group = cl.getGroup(op.param1)
+                      gMembMids = [contact.mid for contact in group.invitee]
+                      random.choice(DEF).cancelGroupInvitation(op.param1, gMembMids)
         #------Cancel Invite User Finish------#
 
         if op.type == 13:
             if mid in op.param3:
                 if wait["autoJoin"] == True:
                     cl.acceptGroupInvitation(op.param1)
+                    cl.inviteIntoGroup(op.param1,admin)
                     print "BOT 1 Joined"
                 else:
                     print "autoJoin is Off"
@@ -277,6 +313,7 @@ def bot(op):
             if Amid in op.param3:
                 if wait["autoJoin"] == True:
                     kk.acceptGroupInvitation(op.param1)
+                    kk.inviteIntoGroup(op.param1,admin)
                     print "BOT 2 Joined"
                 else:
                     print "autoJoin is Off"
@@ -284,6 +321,7 @@ def bot(op):
             if Bmid in op.param3:
                 if wait["autoJoin"] == True:
                     ki.acceptGroupInvitation(op.param1)
+                    ki.inviteIntoGroup(op.param1,admin)
                     print "BOT 3 Joined"
                 else:
                     print "autoJoin is Off"
@@ -291,6 +329,7 @@ def bot(op):
             if Cmid in op.param3:
                 if wait["autoJoin"] == True:
                     kc.acceptGroupInvitation(op.param1)
+                    kc.inviteIntoGroup(op.param1,admin)
                     print "BOT 4 Joined"
                 else:
                     print "autoJoin is Off"
@@ -2040,7 +2079,7 @@ def bot(op):
 					wait2['setTime'][msg.to] = datetime.now().strftime('%Y-%m-%d %H:%M')
 					wait2['ROM'][msg.to] = {}
 					print wait2
-            elif msg.text == "@keluar":
+            elif msg.text == "@nongol":
 				if msg.from_ in admin:
 					if msg.to in wait2['readPoint']:
 						if wait2["ROM"][msg.to].items() == []:
@@ -2050,7 +2089,7 @@ def bot(op):
 							for rom in wait2["ROM"][msg.to].items():
 								print rom
 								chiya += rom[1] + "\n"
-						cl.sendText(msg.to, "╔═══════════════%s\n╠════════════════\n%s╠═══════════════\n║Reading point creation:\n║ [%s]\n╚════════════════"  % (wait2['readMember'][msg.to],chiya,setTime[msg.to]))
+						cl.sendText(msg.to, "╔═════ON SIDER══════%s\n╠════════════════\n%s╠════════════════\n║Reading point creation:\n║ [%s]\n╚════════════════"  % (wait2['readMember'][msg.to],chiya,setTime[msg.to]))
 					else:
 						cl.sendText(msg.to, "aku lelah")
 #-----------------------------------------------
@@ -2351,25 +2390,24 @@ def bot(op):
 						cl.sendText(msg.to, str(e))
                         
             elif "Copy @" in msg.text:
-				if msg.from_ in admin:
-					if msg.toType == 2:
-						print "[Copy] OK"
-						_name = msg.text.replace("Copy @","")
-						_nametarget = _name.rstrip('  ')
-						gs = cl.getGroup(msg.to)
-						targets = []
-						for g in gs.members:
-							if _nametarget == g.displayName:
-								targets.append(g.mid)
-						if targets == []:
-							cl.sendMessage(msg.to, "Not Found...")
-						else:
-							for target in targets:
-								try:
-									cl.CloneContactProfile(target)
-									cl.sendMessage(msg.to, "Success Copy profile ~")
-								except Exception as e:
-									print e
+                if msg.toType == 2:
+                    print "[Copy] OK"
+                    _name = msg.text.replace("Copy @","")
+                    _nametarget = _name.rstrip('  ')
+                    gs = cl.getGroup(msg.to)
+                    targets = []
+                    for g in gs.members:
+                        if _nametarget == g.displayName:
+                           targets.append(g.mid)
+                    if targets == []:
+                        cl.sendMessage(msg.to, "Not Found...")
+                    else:
+                        for target in targets:
+                            try:
+                               cl.CloneContactProfile(target)
+                               cl.sendMessage(msg.to, "Success Copy profile ~")
+                            except Exception as e:
+                               print e
                              
             elif "@a1 copy @" in msg.text:
 				if msg.from_ in admin:
@@ -2573,9 +2611,9 @@ def bot(op):
 					cl.sendText(msg.to,"􀔃􀆶squared up!􏿿")
 					ki.sendText(msg.to,"􀔃􀆶squared up!􏿿")
         #-------------Fungsi Spam Finish--------------        #-------------Fungsi Broadcast Start------------#
-            elif "@bc " in msg.text:
+            elif "@Bc " in msg.text:
 				if msg.from_ in admin:
-					bctxt = msg.text.replace("@bc ","")
+					bctxt = msg.text.replace("@Bc ","")
 					a = cl.getGroupIdsJoined()
 					a = ki.getGroupIdsJoined()
 					a = kk.getGroupIdsJoined()
@@ -2585,6 +2623,13 @@ def bot(op):
 						ki.sendText(taf, (bctxt))
 						kk.sendText(taf, (bctxt))
 						kc.sendText(taf, (bctxt))
+						
+            elif "@bc " in msg.text:
+				if msg.from_ in admin:
+					bctxt = msg.text.replace("@bc ","")
+					ki.sendText(msg.to,(bctxt))
+					kk.sendText(msg.to,(bctxt))
+					kc.sendText(msg.to,(bctxt))
        #--------------Fungsi Broadcast Finish-----------#
 
             elif msg.text in ["@list group"]:
@@ -2854,7 +2899,7 @@ def bot(op):
 					if Name in wait2['readMember'][op.param1]:
 						pass
 					else:
-						wait2['readMember'][op.param1] += "\n╠" + Name
+						#wait2['readMember'][op.param1] += "\n╠" + Name
 						wait2['ROM'][op.param1][op.param2] = "╠" + Name
 				else:
 					cl.sendText
@@ -2932,7 +2977,7 @@ thread2.daemon = True
 thread2.start()
 
 def autolike():
-     for zx in range(0,20):
+     for zx in range(0, 20):
         hasil = cl.activity(limit=1000)
         if hasil['result']['posts'][zx]['postInfo']['liked'] == False:
           try:    
